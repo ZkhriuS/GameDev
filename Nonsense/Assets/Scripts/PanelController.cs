@@ -10,6 +10,7 @@ public class PanelController : MonoBehaviour
 
     private RectTransform rectTransfrom;
 
+    private bool isShowed = false;
     private void Start()
     {
         rectTransfrom = GetComponent<RectTransform>();
@@ -17,11 +18,17 @@ public class PanelController : MonoBehaviour
 
     public void Show()
     {
-        transform.DOMove(rectTransfrom.position + SideToVector(showSide), 0.5f).SetEase(Ease.InOutFlash);
+        if (isShowed) return;
+
+        isShowed = true;
+        transform.DOMove(rectTransfrom.position + SideToVector(showSide), 0.5f);;
     }
     public void Hide()
     {
-        transform.DOMove(rectTransfrom.position - SideToVector(showSide), 0.5f).SetEase(Ease.InOutFlash);
+        if (!isShowed) return;
+
+        isShowed = false;
+        transform.DOMove(rectTransfrom.position - SideToVector(showSide), 0.5f);
     }
 
     private Vector3 SideToVector(ShowSide side)
